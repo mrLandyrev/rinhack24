@@ -1,0 +1,21 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+  file-uploader:
+    build:
+      context: .
+      dockerfile: file-uploader.Dockerfile
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway.Dockerfile
+    ports:
+      - "80:80"
+  db:
+    image: postgres
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: very-strong-password

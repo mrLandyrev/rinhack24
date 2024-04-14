@@ -1,0 +1,6 @@
+<div class="tui-container">
+    <div *tuiLet="emlFiles$ | async as emlFiles">
+        <app-eml-files-filters class="tui-space_bottom-2"></app-eml-files-filters>
+        <app-eml-files-list [items]="emlFiles"></app-eml-files-list>
+    </div>
+</div>

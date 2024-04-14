@@ -1,0 +1,118 @@
+<tui-table-pagination
+    class="tui-space_bottom-2"
+    [total]="(this.totalItems$ | async) || 0"
+    [size]="20"
+    (paginationChange)="onPaginationChange($event)"
+>
+</tui-table-pagination>
+
+<tui-loader
+    [showLoader]="!items || !!(this.isFilesLoading$ | async)"
+    [overlay]="true"
+>
+    <tui-scrollbar>
+        <table
+            class="tui-table tui-table_layout_fixed"
+            tuiTable
+            [columns]="columns"
+            [direction]="(direction$ | async) || 1"
+            [tuiSortBy]="sorter$ | async"
+            (directionChange)="direction$.next($event)"
+            (tuiSortByChange)="sorter$.next($any($event)!)"
+        >
+            <thead>
+                <tr class="tui-table__tr table__tr_border_none" tuiThGroup>
+                    <th *tuiHead="'subject'" tuiTh tuiSortable>Subject</th>
+                    <th *tuiHead="'fileName'" tuiTh tuiSortable>Filename</th>
+                    <th *tuiHead="'sendDate'" tuiTh tuiSortable>Send Date</th>
+                    <th *tuiHead="'uploadDate'" tuiTh tuiSortable>
+                        Upload Date
+                    </th>
+                    <th *tuiHead="'to'" tuiTh tuiSortable>To</th>
+                    <th *tuiHead="'cc'" tuiTh tuiSortable>CC</th>
+                    <th *tuiHead="'from'" tuiTh tuiSortable>From</th>
+                </tr>
+            </thead>
+
+            <tbody *ngIf="items" tuiTbody [data]="items">
+                <tr
+                    *ngFor="let file of items; trackBy: idIdentity"
+                    tuiTr
+                    class="file tui-table__tr table__tr_border_none"
+                    [class.file--danger]="file.isDanger"
+                    (click)="showFileDangerValues(file)"
+                >
+                    <td
+                        *tuiCell="'subject'"
+                        class="tui-table__td tui-table__td_align_center"
+                        tuiTd
+                    >
+                        <tui-line-clamp
+                            [content]="file.subject"
+                            [linesLimit]="1"
+                        ></tui-line-clamp>
+                    </td>
+
+                    <td
+                        *tuiCell="'fileName'"
+                        class="tui-table__td tui-table__td_align_center"
+                        tuiTd
+                    >
+                        <tui-line-clamp
+                            [content]="file.fileName"
+                            [linesLimit]="1"
+                        ></tui-line-clamp>
+                    </td>
+
+                    <td
+                        *tuiCell="'sendDate'"
+                        class="no-wrap tui-table__td tui-table__td_align_center"
+                        tuiTd
+                    >
+                        {{ file.sendDate | date : "dd.MM.YYYY HH:mm:ss" }}
+                    </td>
+
+                    <td
+                        *tuiCell="'uploadDate'"
+                        class="no-wrap tui-table__td tui-table__td_align_center"
+                        tuiTd
+                    >
+                        {{ file.uploadDate | date : "dd.MM.YYYY HH:mm:ss" }}
+                    </td>
+
+                    <td
+                        *tuiCell="'to'"
+                        class="tui-table__td tui-table__td_align_center"
+                        tuiTd
+                    >
+                        <tui-line-clamp
+                            [content]="file.to | joinPipe"
+                            [linesLimit]="1"
+                        ></tui-line-clamp>
+                    </td>
+
+                    <td
+                        *tuiCell="'cc'"
+                        class="tui-table__td tui-table__td_align_center"
+                        tuiTd
+                    >
+                        <tui-line-clamp
+                            [content]="file.cc | joinPipe"
+                            [linesLimit]="1"
+                        >
+                        </tui-line-clamp>
+                    </td>
+
+                    <td
+                        *tuiCell="'from'"
+                        class="tui-table__td tui-table__td_align_center"
+                        tuiTd
+                    >
+                        <tui-line-clamp [content]="file.from | joinPipe" [linesLimit]="1">
+                        </tui-line-clamp>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </tui-scrollbar>
+</tui-loader>

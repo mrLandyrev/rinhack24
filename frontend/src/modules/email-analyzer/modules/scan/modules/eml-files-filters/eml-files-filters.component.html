@@ -1,0 +1,16 @@
+<form class="tui-form">
+    <div class="tui-form_row tui-form__row_multi-fields">
+        <tui-input-tag
+            class="tui-form__multi-field"
+            tuiTextfieldSize="m"
+            [tuiTextfieldLabelOutside]="true"
+            [tuiTextfieldCleaner]="true"
+            [formControl]="form.controls.regExps"
+            [uniqueTags]="true"
+            [editable]="true"
+            [separator]="'‎ '"
+        >
+            Регулярные выражения
+        </tui-input-tag>
+    </div>
+</form>
