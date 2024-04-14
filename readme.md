@@ -27,9 +27,7 @@
 СРЕДА ЗАПУСКА
 ------------
 1) развертывание сервиса производится на debian-like linux (debian 9+);
-2) требуется установленный web-сервер с поддержкой PHP(версия 7.4+) интерпретации (apache, nginx);
-3) требуется установленная СУБД MariaDB (версия 10+);
-4) требуется установленный пакет name1 для работы с...;
+2) требуется установленный docker и docker-compose
 
 
 УСТАНОВКА
@@ -38,45 +36,24 @@
 
 Выполните 
 ~~~
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install name1
-sudo apt-get install mariadb-client mariadb-server
-git clone https://github.com/Sinclear/default_readme
-cd default_readme
+docker-compose up
 ...
 ~~~
 ### База данных
 
-Необходимо создать пустую базу данных, а подключение к базе прописать в конфигурационный файл сервиса по адресу: папка_сервиса/...
-~~~
-sudo systemctl restart mariadb
-sudo mysql_secure_installation
-mysql -u root -p
-mypassword
-CREATE DATABASE mynewdb;
-quit
-~~~
+Все создается автоматически
+
 ### Выполнение миграций
 
-Для заполнения базы данных системной информацией выполните в корневой папке сервиса: 
-~~~
-mysql -u root -p -f mynewdb < папка_сервиса/...
-mypassword
-~~~
-и согласитесь с запросом
+Для заполнения базы данных используйте веб интерфейс
 
 ### Установка зависимостей проекта
 
-Установка зависимостей осуществляется с помощью [Composer](http://getcomposer.org/). Если у вас его нет вы можете установить его по инструкции
-на [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-После этого выполнить команду в директории проекта:
-
-~~~
-composer install
-~~~
+Происходит автоматически
 
 РАЗРАБОТЧИКИ
 
-<h4>Иванов Иван fullstack https://t.me/test@name1 </h4>
+<h4>Гончаров Владислав ak ангулярщик https://t.me/@BL4DCPh </h4>
+<h4>Сипунов Роман ak кэп https://t.me/@Roman_Sip </h4>
+<h4>Русскина Ангелина ak Лебедев https://t.me/taodaotao </h4>
+<h4>Ландырев Сергей ak-47 https://t.me/@mrLandyrev </h4>
