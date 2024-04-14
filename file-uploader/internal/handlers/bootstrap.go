@@ -13,9 +13,9 @@ func Bootstrap(db *sql.DB) (*gin.Engine, error) {
 
 	server.Use(BuildCORSMiddleware())
 
-	server.GET("/email/list", BuildHandleList(db))
-	server.POST("/email/upload", BuildHandlerUpload(saveFileUseCase))
-	server.GET("/email/:id", BuildHandleDetails(db))
+	server.GET("/api/email/list", BuildHandleList(db))
+	server.POST("/api/email/upload", BuildHandlerUpload(saveFileUseCase))
+	server.GET("/api/email/:id", BuildHandleDetails(db))
 
 	return server, nil
 }
