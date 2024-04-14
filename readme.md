@@ -54,6 +54,6 @@ docker-compose up
 РАЗРАБОТЧИКИ
 
 <h4>Гончаров Владислав ak ангулярщик https://t.me/@BL4DCPh </h4>
-<h4>Сипунов Роман ak кэп https://t.me/@Roman_Sip </h4>
+<h4>Сипунов Роман ak командир https://t.me/@Roman_Sip </h4>
 <h4>Русскина Ангелина ak Лебедев https://t.me/taodaotao </h4>
 <h4>Ландырев Сергей ak-47 https://t.me/@mrLandyrev </h4>
