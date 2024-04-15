@@ -97,7 +97,7 @@ func buildHandlerReport(db *sql.DB) func(c *gin.Context) {
 				wg.Add(1)
 				go func() {
 					defer wg.Done()
-					for cur, ok := <-rowC; ok; {
+					for cur, ok := <-rowC; ok; cur, ok = <-rowC {
 
 						dangerValues := make([]string, 0)
 
