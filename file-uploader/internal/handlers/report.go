@@ -74,7 +74,7 @@ func buildHandlerReport(db *sql.DB) func(c *gin.Context) {
 
 			go func() {
 				defer wg.Done()
-				defer rows.Close()
+				defer close(rowC)
 				for rows.Next() {
 					var r row
 					rows.Scan(
