@@ -57,8 +57,8 @@ func buildHandlerReport(db *sql.DB) func(c *gin.Context) {
 			log.Print("here")
 
 			wg := &sync.WaitGroup{}
-			for i := 0; i < 10; i++ {
-				wg.Add(i)
+			for i := 0; i < 20; i++ {
+				wg.Add(1)
 				go func() {
 					defer wg.Done()
 					for rows.Next() {
