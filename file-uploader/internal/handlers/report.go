@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"regexp"
+	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -55,44 +56,53 @@ func buildHandlerReport(db *sql.DB) func(c *gin.Context) {
 
 			log.Print("here")
 
-			for rows.Next() {
-				var (
-					id          string
-					filename    string
-					send_date   time.Time
-					upload_date time.Time
-					to          string
-					cc          string
-					from        string
-					subject     string
-					content     string
-				)
+			wg := &sync.WaitGroup{}
+			for i := 0; i < 10; i++ {
+				wg.Add(i)
+				go func() {
+					defer wg.Done()
+					for rows.Next() {
+						var (
+							id          string
+							filename    string
+							send_date   time.Time
+							upload_date time.Time
+							to          string
+							cc          string
+							from        string
+							subject     string
+							content     string
+						)
 
-				rows.Scan(
-					&id,
-					&filename,
-					&send_date,
-					&upload_date,
-					&to,
-					&cc,
-					&from,
-					&subject,
-					&content,
-				)
+						rows.Scan(
+							&id,
+							&filename,
+							&send_date,
+							&upload_date,
+							&to,
+							&cc,
+							&from,
+							&subject,
+							&content,
+						)
 
-				dangerValues := make([]string, 0)
+						dangerValues := make([]string, 0)
 
-				for _, r := range cr {
-					dangerValues = append(dangerValues, r.FindAllString(string(content), -1)...)
-				}
+						for _, r := range cr {
+							dangerValues = append(dangerValues, r.FindAllString(string(content), -1)...)
+						}
 
-				if len(dangerValues) > 0 {
-					items <- gin.H{
-						"id":   id,
-						"name": filename,
+						if len(dangerValues) > 0 {
+							items <- gin.H{
+								"id":   id,
+								"name": filename,
+							}
+						}
 					}
-				}
+				}()
 			}
+
+			wg.Wait()
 
 			close(items)
 		}()
