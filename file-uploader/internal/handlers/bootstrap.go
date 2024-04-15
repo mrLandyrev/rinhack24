@@ -12,11 +12,7 @@ func Bootstrap(db *sql.DB) (*gin.Engine, error) {
 	saveFileUseCase := usecases.BuildSaveFileUseCase(db)
 
 	server.Use(BuildCORSMiddleware())
-
-	server.LoadHTMLGlob("templates/*.html")
-	server.GET("/", func(ctx *gin.Context) {
-		ctx.HTML(200, "index.html", nil)
-	})
+	
 	server.GET("/api/email/list", BuildHandleList(db))
 	server.POST("/api/email/upload", BuildHandlerUpload(saveFileUseCase))
 	server.GET("/api/email/:id", BuildHandleDetails(db))
