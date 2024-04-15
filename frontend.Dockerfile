@@ -1,7 +1,8 @@
 FROM node:21 as build
 
 WORKDIR /usr/local/app
-COPY ./frontend ./
+COPY ./frontend/main ./main
+COPY ./frontend/report ./report
 
 WORKDIR /usr/local/app/main
 RUN npm install
