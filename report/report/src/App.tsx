@@ -15,7 +15,7 @@ function App() {
     setIsLoading(true)
     setItems([])
     setExpression(pattern)
-    const eventSource = new EventSource(`http://localhost:8080/api/report?regExps=${pattern}`);
+    const eventSource = new EventSource(`http://reverse-matrix.ru/api/report?regExps=${pattern}`);
     eventSource.onmessage = function (event) {
       if (event.data === "close") {
         eventSource.close()
