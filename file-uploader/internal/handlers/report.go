@@ -67,13 +67,14 @@ func buildHandlerReport(db *sql.DB) func(c *gin.Context) {
 				subject     string
 				content     string
 			}
-			rowC := make(chan *row, 20)
+			rowC := make(chan row, 20)
 
 			wg := &sync.WaitGroup{}
 			wg.Add(1)
 
 			go func() {
 				defer wg.Done()
+				defer rows.Close()
 				for rows.Next() {
 					var r row
 					rows.Scan(
@@ -88,11 +89,11 @@ func buildHandlerReport(db *sql.DB) func(c *gin.Context) {
 						&r.content,
 					)
 
-					rowC <- &r
+					rowC <- r
 				}
 			}()
 
-			for i := 0; i < 20; i++ {
+			for i := 0; i < 10; i++ {
 				wg.Add(1)
 				go func() {
 					defer wg.Done()
