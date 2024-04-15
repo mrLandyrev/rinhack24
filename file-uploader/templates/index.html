@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let eventSource = new EventSource("/api/report?regExps=%5Cb(%3F%3A%5C%2B%3F7%7C%5Cb8)(%3F%3A%5Cs*[(%5C-]%3F%5Cd{3}%5C)%3F%7C%5Cs*%5Cd{3}[-)]%3F)%5Cs*%5Cd{3}[-%20]%3F%5Cd{2}[-%20]%3F%5Cd{2}%5Cb&regExps=%5Cb(%5Cd{20})%5Cb&regExps=%5Cb(%5Cd{16})%5Cb%7C%5Cb(%5Cd{4}%20%5Cd{4}%20%5Cd{4}%20%5Cd{4})%5Cb&regExps=%5Cb(%3F%3A%5C%2B%3F7%7C%5Cb8)(%3F%3A%5Cs*[(%5C-]%3F%5Cd{3}%5C)%3F%7C%5Cs*%5Cd{3}[-)]%3F)%5Cs*%5Cd{3}[-%20]%3F%5Cd{2}[-%20]%3F%5Cd{2}%5Cb&regExps=%5Cb(%5Cd{3}-%5Cd{3}-%5Cd{3}%20%5Cd{2})%5Cb");
+        i = 0
+        eventSource.onmessage = function(event) {
+            i++
+            if (event.data == "close") {
+                eventSource.close()
+                n = document.createElement("div")
+                n.innerText = "end"
+                document.body.appendChild(n)
+            } else {
+                n = document.createElement("div")
+                n.innerText = i + " " + JSON.parse(event.data).id
+                document.body.appendChild(n)
+            }
+        };
+    </script>
+</body>
+</html>

@@ -21,6 +21,7 @@ type App struct {
 
 func NewApp(config Config) (*App, error) {
 	app := &App{}
+	app.path = config.Path
 	var err error
 
 	if app.db, err = database.Bootstrap(); err != nil {
