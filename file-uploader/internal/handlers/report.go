@@ -107,8 +107,9 @@ func buildHandlerReport(db *sql.DB) func(c *gin.Context) {
 
 						if len(dangerValues) > 0 {
 							items <- gin.H{
-								"id":   cur.id,
-								"name": cur.filename,
+								"id":     cur.id,
+								"name":   cur.filename,
+								"points": dangerValues,
 							}
 						}
 					}

@@ -8,6 +8,7 @@ function App() {
   const [items, setItems] = useState(new Array<{
     id: string,
     name: string,
+    points: string[],
   }>())
   const [isLoading, setIsLoading] = useState(false)
 
@@ -24,6 +25,7 @@ function App() {
         const item = JSON.parse(event.data) as {
           id: string,
           name: string,
+          points: string[],
         }
         setItems(items => [...items, item])
       }
@@ -94,6 +96,7 @@ function App() {
                     <TableCell>Index</TableCell>
                     <TableCell>id</TableCell>
                     <TableCell>Filename</TableCell>
+                    <TableCell>Points</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -105,6 +108,7 @@ function App() {
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>{item.id}</TableCell>
                       <TableCell>{item.name}</TableCell>
+                      <TableCell>{item.points.join(", ")}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
