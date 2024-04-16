@@ -1,0 +1,25 @@
+name: "deploy"
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Run command on remote server
+        uses: D3rHase/ssh-command-action@v0.2.2
+        with:
+          host: ${{secrets.SSH_HOST}}
+          user: ${{secrets.SSH_USER}}
+          password: ${{secrets.SSH_PASSWORD}}
+          command: |
+            cd rinhack24;
+            git checkout main;
+            git pull;
+            docker-compose stop;
+            docker-compose build;
+            docker-compose up -d;
