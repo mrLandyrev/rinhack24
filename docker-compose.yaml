@@ -21,3 +21,30 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: very-strong-password
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+  pormetheus:
+    build:
+      context: .
+      dockerfile: prometheus.Dockerfile
+    volumes:
+    - ./prometheus/config/:/etc/prometheus/
+    - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+  grafana:
+    image: grafana/grafana
+    volumes:
+    - grafana-storage:/var/lib/grafana
+    ports:
+    - "3000:3000"
+volumes:
+  prometheus_data: {}
+  grafana-storage: {}
