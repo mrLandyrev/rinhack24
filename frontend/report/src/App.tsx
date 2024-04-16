@@ -105,7 +105,7 @@ function App() {
                       key={item.id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>#{index + 1}</TableCell>
                       <TableCell>{item.id}</TableCell>
                       <TableCell>{item.name}</TableCell>
                       <TableCell>{item.points.join(", ")}</TableCell>
