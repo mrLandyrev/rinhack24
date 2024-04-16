@@ -93,7 +93,7 @@ function App() {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Index</TableCell>
+                    <TableCell>№</TableCell>
                     <TableCell>id</TableCell>
                     <TableCell>Filename</TableCell>
                     <TableCell>Points</TableCell>
@@ -105,7 +105,7 @@ function App() {
                       key={item.id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>№{index + 1}</TableCell>
                       <TableCell>{item.id}</TableCell>
                       <TableCell>{item.name}</TableCell>
                       <TableCell>{item.points.join(", ")}</TableCell>
